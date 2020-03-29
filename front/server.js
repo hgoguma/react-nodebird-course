@@ -30,6 +30,9 @@ app.prepare().then(() => { //next에서 express 돌리기
         },
     }));
 
+    server.get('/post/:id', (req, res) => {
+        return app.render(req, res, '/post', { id : req.params.id }); 
+    });
     server.get('/hashtag/:tag', (req, res) => {
         return app.render(req, res, '/hashtag', { tag : req.params.tag }); 
         //app이 next! 

@@ -97,8 +97,6 @@ function* watchLogOut() {
 
 //유저 정보 불러오기(내 정보 + 남의 정보)
 function loadUserAPI(userId) {
-    console.log('유저 정보 불러오기! API');
-    console.log('유저 아이디 있어?'+userId);
     return axios.get(userId ? `/user/${userId}` : '/user/', {
         withCredentials: true,
         //클라이언트에서 요청 보낼 때는 브라우저가 쿠키를 같이 동봉! 
@@ -115,8 +113,7 @@ function* loadUser(action) {
             me : !action.data, //action.data는 userId를 의미함. userId가 없을 때 내 정보를 불러옴
         });
     } catch (e) {
-        console.log('정보 불러오기 실패'+e);
-        console.error(e);
+        //console.error(e);
         yield put({ 
             type : LOAD_USER_FAILURE,
             error : e
