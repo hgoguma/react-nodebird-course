@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 export const initialState = {
     isLoggingOut: false, // 로그아웃 시도중
     isLoggingIn: false, // 로그인 시도중
@@ -66,6 +68,8 @@ export const INCREMENT_NUMBER = 'INCREMENT_NUMBER'; //동기 요청 -> redux
 
 //reducer : action의 결과로 state를 어떻게 바꿀지 정의
 const reducer = (state = initialState, action) => {
+
+  return produce(state, (draft) => {
     switch(action.type) {
         case LOG_IN_REQUEST: {
             return {
@@ -153,13 +157,8 @@ const reducer = (state = initialState, action) => {
           }
         }
         case FOLLOW_USER_SUCCESS : {
-          return {
-            ...state,
-            me : {
-              ...state.me,
-              Followings : [ {id : action.data}, ...state.me.Followings]
-            },
-          };
+          draft.me.Followings.unshift({id : action.data});
+          break;
         }
         case FOLLOW_USER_FAILURE : {
           return {
@@ -296,6 +295,7 @@ const reducer = (state = initialState, action) => {
             }
         }
     }
+  });
 };
 
 export default reducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { LOAD_HASHTAG_POSTS_REQUEST } from '../reducers/post';
@@ -6,7 +6,32 @@ import PostCard from '../componets/PostCard';
 
 
 const Hashtag = ({tag}) => {
-    const { mainPosts } = useSelector(state => state.post);
+    const { mainPosts, hasMorePost } = useSelector(state => state.post);
+
+    const dispatch = useDispatch();
+    const countRef = useRef([]); //빈 배열에 서버에 요청 보냈던 lastId를 기록하기!
+
+    const onScroll = useCallback(() => {
+        if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300) {
+          if (hasMorePost) {
+            const lastId = mainPosts[mainPosts.length - 1].id;
+            if (!countRef.current.includes(lastId)) {
+              dispatch({
+                type: LOAD_HASHTAG_POSTS_REQUEST,
+                lastId,
+              });
+              countRef.current.push(lastId); 
+            }
+          }
+        }
+      }, [hasMorePost, mainPosts.length]);
+    
+      useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => {
+          window.removeEventListener('scroll', onScroll);
+        };
+      }, [mainPosts.length]);
 
     return (
         <div>

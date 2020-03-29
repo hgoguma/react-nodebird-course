@@ -85,7 +85,7 @@ function* loadMainPosts(action) {
 
 function* watchLoadMainPosts() {
   yield throttle(2000, LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
-  //throttle
+  //throttle : saga에 대한 액션만 쓰로틀링! 리덕스 자체의 액션이 실행되는 건 막지x -> 프론트에서 막기
   //한번 요청되면 같은 요청이 연달아서 요청되는 걸 막음 
 }
 
