@@ -147,7 +147,12 @@ export default (state = initialState, action) => {
         case LOAD_USER_POSTS_REQUEST: {
             return {
             ...state,
-            mainPosts: [],
+            //처음 게시글을 불러올 때는 초기화!
+            //더 불러올 때에는 기존 게시글 유지
+            mainPosts: action.lastId === 0 ? [] : state.mainPosts,
+            hasMorePost: action.lastId ? state.hasMorePost : true, 
+            //처음 불러올 때엔 스크롤 활성화(true) 
+            //더보기일 때에는 기존 상태 유지
             };
         }
         case LOAD_MAIN_POSTS_SUCCESS:
@@ -155,7 +160,8 @@ export default (state = initialState, action) => {
         case LOAD_USER_POSTS_SUCCESS: {
             return {
             ...state,
-            mainPosts: action.data,
+            mainPosts: state.mainPosts.concat(action.data),
+            hasMorePost : action.data.length === 10,
             };
         }
         case LOAD_MAIN_POSTS_FAILURE:
