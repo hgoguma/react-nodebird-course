@@ -1,0 +1,40 @@
+{
+  "name": "react-nodebird-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "LEEHYELEE",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.26.13",
+    "axios": "^0.19.2",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "morgan": "^1.10.0",
+    "next": "^9.3.1",
+    "next-redux-saga": "^4.1.2",
+    "next-redux-wrapper": "^5.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-slick": "^0.25.2",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "nodemon": "^2.0.2",
+    "webpack": "^4.42.0"
+  }
+}
