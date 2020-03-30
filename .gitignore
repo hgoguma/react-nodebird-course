@@ -3,3 +3,6 @@ back/.env
 back/node_modules/
 front/.next/
 front/node_modules/
+package-lock.json
+back/package-lock.json
+front/package-lock.json
