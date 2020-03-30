@@ -1,11 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { Button, List, Card, Icon } from 'antd';
-import NickNameEditForm from '../componets/NickNameEditForm';
+import NickNameEditForm from '../components/NickNameEditForm';
 import { LOAD_FOLLOWERS_REQUEST, LOAD_FOLLOWINGS_REQUEST, UNFOLLOW_USER_REQUEST, REMOVE_FOLLOWER_REQUEST } from '../reducers/user';
 import { LOAD_USER_POSTS_REQUEST } from '../reducers/post';
-import PostCard from '../componets/PostCard';
-import { ConfigContext } from 'antd/lib/config-provider/context';
+import PostCard from '../containers/PostCard';
 
 const Profile = () => {
 
@@ -81,7 +80,7 @@ const Profile = () => {
             />
             <div>
                 { mainPosts.map(c => (
-                <PostCard key={+c.createdAt} post={c} />
+                <PostCard key={c.id} post={c} />
                 ))}
             </div>
         </div>

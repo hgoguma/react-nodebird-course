@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
-import AppLayout from '../componets/AppLayout';
+import AppLayout from '../components/AppLayout';
 import withReduxSaga from 'next-redux-saga';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -11,7 +11,16 @@ import reducer from '../reducers';
 import rootSaga from '../saga';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import axios from 'axios';
-import { Container } from 'next/app';
+import App, { Container } from 'next/app';
+
+// class NodeBird extends App {
+//     static getInitialProps(context) {
+
+//     }
+//     render() {
+
+//     }
+// }
 
 
 //{Component} 는 next에서 넣어주는 인자! index.js나 profile.js 등이 옴
@@ -87,12 +96,9 @@ NodeBird.getInitialProps = async (context) => {
 
     //컴포넌트에 getInitialProps 가져오기
     if (Component.getInitialProps) {
-        pageProps = await Component.getInitialProps(ctx);
+        pageProps = await Component.getInitialProps(ctx) || {}; //pageProps에 기본값 넣어주기
         // next에서 전달해주는 ctx가 렌더링 되는 페이지(Component)의 getInitialProps로 전달됨 
-    }
-
-    
-    
+    }    
     return { pageProps }; //return 해주면 component의 props가 됨
 };
 

@@ -204,21 +204,20 @@ const reducer = (state = initialState, action) => {
           }
         }
         case LOAD_FOLLOWERS_REQUEST: {
-          return {
-            ...state,
-            //처음 데이터를 가져올 때는 더보기 버튼을 true로! (더보기 버튼 보여주기)
-            //처음 데이터를 가져오는 게 아닐 때에는 더보기 버튼에 영향을 미치지 않음
-            //action.offset은 데이터를 더 불러올 때 넣어줌 -> 그럴 때는 hasmoreFollower 를 true
-            hasMoreFollowers : action.offset ? state.hasMoreFollowers : true, 
-          };
+          draft.followerList = action.offset ? [] : draft.followerList;
+          draft.hasMoreFollowers = action.offset ? draft.hasMoreFollowers : true;
+          break;
+          //처음 데이터를 가져올 때는 더보기 버튼을 true로! (더보기 버튼 보여주기)
+          //처음 데이터를 가져오는 게 아닐 때에는 더보기 버튼에 영향을 미치지 않음
+          //action.offset은 데이터를 더 불러올 때 넣어줌 -> 그럴 때는 hasmoreFollower 를 true
         }
         case LOAD_FOLLOWERS_SUCCESS: {
-          return {
-            ...state,
-            followerList: state.followerList.concat(action.data), //기존 것에 추가!
-            //불러오는 데이터의 개수가 3개 미만이면 false(더보기 버튼 없애기), 3개면 true
-            hasMoreFollowers : action.data.length === 3, 
-          };
+          action.data.forEach((d) => {
+            draft.followerList.push(d);
+          });
+          draft.hasMoreFollowers = action.data.length === 3;
+          //불러오는 데이터의 개수가 3개 미만이면 false(더보기 버튼 없애기), 3개면 true
+          break;
         }
         case LOAD_FOLLOWERS_FAILURE: {
           return {
@@ -226,18 +225,18 @@ const reducer = (state = initialState, action) => {
           };
         }
         case LOAD_FOLLOWINGS_REQUEST: {
-          return {
-            ...state,
-            hasMoreFollowings : action.offset ? state.hasMoreFollowings : true,
-            //처음 데이터를 가져올 때에는 더보기 버튼을 보여주기
-          };
+          draft.followingList = action.offset ? [] : draft.followingList;
+          draft.hasMoreFollowings = action.offset ? draft.hasMoreFollowings : true;
+          break;
+          //처음 데이터를 가져올 때에는 더보기 버튼을 보여주기
         }
         case LOAD_FOLLOWINGS_SUCCESS: {
-          return {
-            ...state,
-            followingList : state.followingList.concat(action.data),
-            hasMoreFollowings : action.data.length === 3, 
-          };
+          action.data.forEach((d) => {
+            draft.followingList.push(d);
+          });
+          draft.hasMoreFollowings = action.data.length === 3;
+          //불러오는 데이터의 개수가 3개 미만이면 false(더보기 버튼 없애기), 3개면 true
+          break;
         }
         case LOAD_FOLLOWINGS_FAILURE: {
           return {

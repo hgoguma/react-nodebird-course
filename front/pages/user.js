@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { LOAD_USER_POSTS_REQUEST } from '../reducers/post';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import { Card, Avatar } from 'antd';
-import PostCard from '../componets/PostCard';
+import PostCard from '../containers/PostCard';
 
 const User = () => {
 
@@ -42,7 +42,7 @@ const User = () => {
                 ) 
                 : null}
             {mainPosts.map(c => {
-                <PostCard key={+c.createdAt} post={c} />
+                <PostCard key={c.id} post={c} />
             })}
         </div>
     )
