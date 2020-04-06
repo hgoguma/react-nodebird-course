@@ -23,7 +23,7 @@ const PostCard = memo(( {post} ) => {
     //state.user.me : 객체 통째로 불러오기 -> 여기서 하나만 바뀌어도 리렌더링됨! -> 불필요한 리렌더링 막기
     // -> 객체를 그대로 가져오는 게 아니라 객체 안에 있는 값을 하나하나 가져오는 게 좋음
     const dispatch = useDispatch();
-    const liked = me && post.Likers && post.Likers.find(v => v.id === me.id);
+    const liked = id && post.Likers && post.Likers.find(v => v.id === me.id);
 
     //댓글창 켜기
     const onToggleComment = useCallback(() => {
@@ -36,15 +36,15 @@ const PostCard = memo(( {post} ) => {
         }
     }, []);
 
-    const postMemory = useRef(post); 
-    //useRef() : DOM의 레퍼런스에 접근 & 값을 기억하지만 리렌더링하고 싶지 않을 때 사용
+    //const postMemory = useRef(post); 
+    //useRef() : DOM의 레퍼런스에 접근해서 특정 DOM 선택! & 값을 기억하지만 리렌더링하고 싶지 않을 때 사용
 
-    useEffect(() => {
-        console.log('post useEffect', postMemory.current, post, postMemory.current === post);
-    }, [post])
+    // useEffect(() => {
+    //     console.log('post useEffect', postMemory.current, post, postMemory.current === post);
+    // }, [post])
 
     const onToggleLike = useCallback(() => {
-        if(!me){
+        if(!id){
             return alert('로그인이 필요합니다.');
         }
         //좋아요 눌렀는지 아닌지 확인

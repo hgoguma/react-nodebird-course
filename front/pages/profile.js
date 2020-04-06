@@ -5,6 +5,7 @@ import NickNameEditForm from '../containers/NickNameEditForm';
 import { LOAD_FOLLOWERS_REQUEST, LOAD_FOLLOWINGS_REQUEST, UNFOLLOW_USER_REQUEST, REMOVE_FOLLOWER_REQUEST } from '../reducers/user';
 import { LOAD_USER_POSTS_REQUEST } from '../reducers/post';
 import PostCard from '../containers/PostCard';
+import FollowList from '../components/FollowList';
 
 const Profile = () => {
 
@@ -46,21 +47,19 @@ const Profile = () => {
     return (
         <div>
             <NickNameEditForm />
-            <List 
-                style={{ marginBottom : '20px' }}
-                grid={{ gutter : 4, xs: 2, md: 3 }}
-                size="small"
-                header={<div>팔로우 목록</div>}
-                loadMore={ hasMoreFollowings && <Button style={{width:'100%'}} onClick={loadMoreFollowings}>더 보기</Button>}
-                bordered
-                dataSource={ followingList}
-                renderItem={item => (
-                    <List.Item style={{ marginTop : '20px' }}>
-                        <Card actions={[<Icon key="stop" type="stop" onClick={onUnfollow(item.id)} />]}>
-                            <Card.Meta description={item.nickname} />
-                        </Card>
-                    </List.Item>
-                )}
+            <FollowList 
+                header="팔로잉 목록"
+                hasMore={hasMoreFollowings}
+                onClickMore={loadMoreFollowings}
+                data={followingList}
+                onClickStop={onUnfollow}
+            />
+            <FollowList 
+                header="팔로워 목록"
+                hasMore={hasMoreFollowers}
+                onClickMore={loadMoreFollowers}
+                data={followerList}
+                onClickStop={onRemoveFollower}
             />
             <List
                 style={{ marginBottom : '20px' }}
