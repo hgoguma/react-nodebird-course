@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
+const path = require('path');
 
 //express와 next 연결
 const dev = process.env.NODE_ENV !== 'production';
@@ -17,6 +18,7 @@ app.prepare().then(() => { //next에서 express 돌리기
     const server = express();
 
     server.use(morgan('dev'));
+    server.use('/', express.static(path.join(__dirname, 'public')));
     server.use(express.json());
     server.use(express.urlencoded({ extended: true }));
     server.use(cookieParser(process.env.COOKIE_SECRET));

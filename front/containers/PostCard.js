@@ -48,6 +48,7 @@ const PostCard = ( {post} ) => {
 
     useEffect(() => {
        setcommentText('');
+       
     }, [ commentAdded === true]);
 
     const onChangeCommentText = useCallback((e) => {
