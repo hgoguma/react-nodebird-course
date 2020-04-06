@@ -14,11 +14,10 @@ const Hashtag = ({tag}) => {
     const onScroll = useCallback(() => {
         if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300) {
           if (hasMorePost) {
-            const lastId = mainPosts[mainPosts.length - 1].id;
             if (!countRef.current.includes(lastId)) {
               dispatch({
                 type: LOAD_HASHTAG_POSTS_REQUEST,
-                lastId,
+                lastId: mainPosts[mainPosts.length - 1] && mainPosts[mainPosts.length - 1].id,
               });
               countRef.current.push(lastId); 
             }
