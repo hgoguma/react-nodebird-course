@@ -46,6 +46,8 @@ const NodeBird = ({ Component, store, pageProps }) => {
                         name: 'og:description', content: '알파카의 NodeBird SNS',
                     }, {
                         property: 'og:type', content: 'website',
+                    }, {
+                        property: 'og:image', content: 'http://localhost:3000/favicon.ico',
                     }]}
                     link={[{
                         rel: 'shortcut icon', href: '/favicon.ico',
